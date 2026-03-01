@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoltX Hub — Electronics Store India</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080a0f;
+  --sf: #0e1117;
+  --s2: #141820;
+  --s3: #1a1f2e;
+  --ac: #00f0c8;
+  --ac2: #ff4500;
+  --ac3: #ffd700;
+  --ac4: #9b5de5;
+  --tx: #dde3f0;
+  --mu: #55607a;
+  --br: #1c2235;
+  --br2: #242d42;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--tx); font-family:'Rajdhani',sans-serif; overflow-x:hidden; }
+
+/* Grid bg */
+body::before {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,240,200,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,240,200,.018) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* ── NAV ── */
+nav {
+  position:sticky; top:0; z-index:200;
+  background:rgba(8,10,15,.96); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--br);
+  padding:0 1.8rem; display:flex; align-items:center; gap:1rem; height:56px;
+}
+.logo {
+  font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:3px;
+  color:var(--ac); white-space:nowrap; flex-shrink:0; line-height:1;
+}
+.logo sub { font-size:.55rem; color:var(--ac2); letter-spacing:4px; display:block; margin-top:-4px; font-family:'Space Mono',monospace; }
+.nsrch {
+  flex:1; max-width:460px;
+  background:var(--s2); border:1px solid var(--br); border-radius:4px;
+  padding:.38rem .9rem; display:flex; align-items:center; gap:.5rem; transition:border-color .2s;
+}
+.nsrch:focus-within { border-color:var(--ac); }
+.nsrch input { background:none; border:none; outline:none; color:var(--tx); font-family:'Rajdhani',sans-serif; font-size:.9rem; width:100%; }
+.nsrch input::placeholder { color:var(--mu); }
+.nright { display:flex; align-items:center; gap:.6rem; margin-left:auto; }
+.btn { padding:.35rem .95rem; border-radius:3px; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:.82rem; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all .18s; border:none; }
+.bto { background:transparent; border:1.5px solid var(--ac); color:var(--ac); }
+.bto:hover { background:var(--ac); color:var(--bg); }
+.btp { background:var(--ac2); color:#fff; }
+.btp:hover { background:#ff6230; }
+.cbtn {
+  background:var(--s2); border:1.5px solid var(--br2); color:var(--tx);
+  padding:.35rem .85rem; border-radius:3px; font-family:'Rajdhani',sans-serif;
+  font-weight:700; font-size:.82rem; cursor:pointer; display:flex; align-items:center;
+  gap:.4rem; transition:all .18s; letter-spacing:1px; text-transform:uppercase;
+}
+.cbtn:hover { border-color:var(--ac); color:var(--ac); }
+.cc {
+  background:var(--ac2); color:#fff; font-size:.58rem; min-width:16px; height:16px;
+  border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;
+}
+
+/* ── HERO ── */
+.hero {
+  position:relative; z-index:1;
+  background:linear-gradient(135deg, #0e1117 0%, #080a0f 60%);
+  border-bottom:1px solid var(--br); padding:3rem 3rem 2.5rem;
+  display:flex; align-items:center; gap:3rem; overflow:hidden;
+}
+.hero::after {
+  content:''; position:absolute; top:-60px; right:200px;
+  width:400px; height:400px; border-radius:50%;
+  background:radial-gradient(circle, rgba(0,240,200,.06) 0%, transparent 70%);
+  pointer-events:none;
+}
+.htxt { flex:1; position:relative; z-index:1; }
+.hbadge {
+  display:inline-flex; align-items:center; gap:.45rem;
+  background:rgba(0,240,200,.08); border:1px solid rgba(0,240,200,.25);
+  color:var(--ac); padding:.2rem .75rem; border-radius:2px;
+  font-family:'Space Mono',monospace; font-size:.62rem; letter-spacing:2px;
+  text-transform:uppercase; margin-bottom:1rem;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hbadge::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--ac3); animation:pulse 1.2s infinite; }
+h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.4rem,4vw,4rem); letter-spacing:3px; line-height:1; margin-bottom:.9rem; color:#fff; }
+h1 .c1 { color:var(--ac); }
+h1 .c2 { color:var(--ac2); }
+.hdesc { font-size:.97rem; color:var(--mu); line-height:1.65; max-width:440px; margin-bottom:1.5rem; }
+.hbtns { display:flex; gap:.7rem; flex-wrap:wrap; }
+.btnlg { padding:.68rem 1.5rem; font-size:.9rem; }
+.stats { display:flex; gap:2.5rem; margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--br); }
+.sn { font-family:'Bebas Neue',sans-serif; font-size:1.9rem; letter-spacing:2px; color:var(--ac); line-height:1; }
+.sl { font-size:.68rem; color:var(--mu); text-transform:uppercase; letter-spacing:1.5px; margin-top:.1rem; }
+.hchips { flex:0 0 auto; display:grid; grid-template-columns:repeat(4,72px); gap:.5rem; position:relative; z-index:1; }
+.hc {
+  background:var(--s2); border:1px solid var(--br); border-radius:5px;
+  padding:.55rem .3rem; text-align:center; cursor:pointer; transition:all .18s;
+}
+.hc:hover, .hc.on { border-color:var(--ac); background:rgba(0,240,200,.07); }
+.hc .ci { font-size:1.2rem; margin-bottom:.1rem; }
+.hc .cn { font-size:.54rem; font-family:'Space Mono',monospace; color:var(--mu); text-transform:uppercase; }
+.hc.on .cn { color:var(--ac); }
+
+/* ── LAYOUT ── */
+.layout { display:flex; position:relative; z-index:1; }
+.sidebar {
+  width:215px; flex-shrink:0; background:var(--sf);
+  border-right:1px solid var(--br);
+  position:sticky; top:56px; height:calc(100vh - 56px);
+  overflow-y:auto; padding:.8rem 0;
+}
+.sidebar::-webkit-scrollbar { width:3px; }
+.sidebar::-webkit-scrollbar-thumb { background:var(--br2); }
+.stitle { font-family:'Space Mono',monospace; font-size:.58rem; color:var(--mu); text-transform:uppercase; letter-spacing:2px; padding:.2rem 1rem .55rem; }
+.si {
+  display:flex; align-items:center; gap:.5rem; padding:.42rem 1rem;
+  cursor:pointer; border-left:3px solid transparent;
+  font-size:.8rem; font-weight:700; color:var(--mu);
+  text-transform:uppercase; letter-spacing:.5px; transition:all .15s;
+}
+.si:hover { color:var(--tx); background:rgba(255,255,255,.02); }
+.si.on { color:var(--ac); background:rgba(0,240,200,.06); border-left-color:var(--ac); }
+.si .ni { font-size:.9rem; width:17px; text-align:center; }
+.si .nb { font-size:.56rem; font-family:'Space Mono',monospace; background:var(--s3); border-radius:2px; padding:.07rem .25rem; margin-left:auto; }
+.sdiv { height:1px; background:var(--br); margin:.6rem 1rem; }
+
+/* ── MAIN ── */
+.main { flex:1; padding:1.4rem 1.8rem; min-width:0; }
+.pgtitle { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:2px; color:#fff; }
+.pgsub { font-size:.83rem; color:var(--mu); margin-top:.15rem; margin-bottom:.9rem; }
+.resbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:.9rem; padding-bottom:.6rem; border-bottom:1px solid var(--br); }
+.rc { font-family:'Space Mono',monospace; font-size:.68rem; color:var(--mu); }
+.rc span { color:var(--ac); }
+.ss { background:var(--s2); border:1px solid var(--br); color:var(--tx); padding:.26rem .6rem; border-radius:3px; font-family:'Rajdhani',sans-serif; font-size:.8rem; cursor:pointer; outline:none; }
+.sublbl { font-family:'Space Mono',monospace; font-size:.58rem; color:var(--mu); text-transform:uppercase; letter-spacing:2px; margin:1rem 0 .5rem; }
+.sublbl::before { content:'// '; color:var(--ac); }
+.grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(185px,1fr)); gap:.8rem; }
+
+/* ── PRODUCT CARD ── */
+.card {
+  background:var(--sf); border:1px solid var(--br); border-radius:6px;
+  overflow:hidden; display:flex; flex-direction:column; transition:all .2s;
+}
+.card:hover { border-color:rgba(0,240,200,.3); transform:translateY(-3px); box-shadow:0 8px 28px rgba(0,0,0,.5); }
+.cimg {
+  height:120px; display:flex; align-items:center; justify-content:center;
+  border-bottom:1px solid var(--br); position:relative; overflow:hidden; flex-shrink:0;
+}
+.cimg.ph { background:#f5f5f5; }
+.cimg.nph { background:var(--s2); }
+.cimg img { width:100%; height:100%; object-fit:contain; padding:6px; }
+.ptag {
+  position:absolute; top:5px; right:5px;
+  font-size:.54rem; font-weight:700; padding:.09rem .28rem;
+  border-radius:2px; text-transform:uppercase; letter-spacing:1px;
+}
+.pt-hot { background:var(--ac2); color:#fff; }
+.pt-new { background:var(--ac); color:var(--bg); }
+.pt-kit { background:var(--ac3); color:#000; }
+.pco { font-size:.55rem; font-family:'Space Mono',monospace; color:var(--ac4); text-transform:uppercase; padding:.42rem .65rem 0; }
+.pinfo { padding:.2rem .65rem .75rem; flex:1; display:flex; flex-direction:column; }
+.pn { font-size:.84rem; font-weight:700; color:#fff; line-height:1.3; margin-bottom:.14rem; }
+.pd { font-size:.69rem; color:var(--mu); line-height:1.4; flex:1; margin-bottom:.5rem; }
+.pfoot { display:flex; align-items:center; justify-content:space-between; margin-top:auto; }
+.pp { font-family:'Space Mono',monospace; font-size:.85rem; color:var(--ac3); font-weight:700; }
+.ab { background:var(--ac); color:var(--bg); border:none; padding:.26rem .58rem; border-radius:3px; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:.7rem; text-transform:uppercase; letter-spacing:1px; cursor:pointer; transition:background .15s; }
+.ab:hover { background:#33f5d5; }
+
+/* ── CART ── */
+.ov { position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:300; display:none; }
+.ov.open { display:block; }
+.csd { position:fixed; top:0; right:-400px; width:400px; height:100vh; background:var(--sf); border-left:1px solid var(--br); z-index:301; transition:right .28s; display:flex; flex-direction:column; }
+.csd.open { right:0; }
+.chd { padding:.95rem 1.2rem; border-bottom:1px solid var(--br); display:flex; justify-content:space-between; align-items:center; }
+.chd h2 { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:2px; color:var(--ac); }
+.xb { background:none; border:none; color:var(--mu); font-size:1.2rem; cursor:pointer; padding:.2rem .4rem; border-radius:3px; transition:color .15s; }
+.xb:hover { color:var(--tx); }
+.citms { flex:1; overflow-y:auto; padding:.6rem; display:flex; flex-direction:column; gap:.42rem; }
+.ci { background:var(--s2); border:1px solid var(--br); border-radius:4px; padding:.6rem; display:flex; gap:.5rem; align-items:center; }
+.ciic { font-size:1.2rem; width:28px; text-align:center; flex-shrink:0; }
+.ciin { flex:1; }
+.cinm { font-size:.78rem; font-weight:700; color:var(--tx); margin-bottom:.08rem; }
+.cipr { font-family:'Space Mono',monospace; font-size:.7rem; color:var(--ac3); }
+.ciqt { display:flex; align-items:center; gap:.25rem; margin-top:.18rem; }
+.qb { background:var(--br); border:none; color:var(--tx); width:17px; height:17px; border-radius:3px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:.8rem; transition:background .15s; }
+.qb:hover { background:var(--ac); color:var(--bg); }
+.qn { font-family:'Space Mono',monospace; font-size:.7rem; min-width:13px; text-align:center; }
+.cdl { background:none; border:none; color:var(--mu); cursor:pointer; font-size:.82rem; transition:color .15s; }
+.cdl:hover { color:#f55; }
+.cempty { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--mu); gap:.45rem; font-size:.8rem; }
+.cft { padding:.95rem 1.2rem; border-top:1px solid var(--br); }
+.ctot { display:flex; justify-content:space-between; margin-bottom:.8rem; }
+.ctlbl { font-size:.8rem; font-weight:700; color:var(--mu); text-transform:uppercase; letter-spacing:1px; }
+.ctamt { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:2px; color:var(--ac3); }
+.chkb { width:100%; padding:.72rem; background:var(--ac2); color:#fff; border:none; border-radius:4px; font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:3px; cursor:pointer; transition:all .2s; }
+.chkb:hover { background:#ff6230; transform:translateY(-1px); }
+
+/* ── TOAST ── */
+.toast { position:fixed; bottom:1.3rem; left:50%; transform:translateX(-50%) translateY(70px); background:var(--ac); color:var(--bg); padding:.42rem 1.1rem; border-radius:4px; font-family:'Space Mono',monospace; font-size:.68rem; font-weight:700; z-index:400; transition:transform .25s; white-space:nowrap; pointer-events:none; }
+.toast.show { transform:translateX(-50%) translateY(0); }
+
+/* ── CONTACT SECTION ── */
+.contact {
+  position:relative; z-index:1;
+  background:var(--sf); border-top:1px solid var(--br); border-bottom:1px solid var(--br);
+  padding:2.5rem 3rem;
+}
+.contact-inner { max-width:900px; margin:0 auto; display:flex; gap:3rem; align-items:flex-start; flex-wrap:wrap; }
+.ctag { display:inline-flex; align-items:center; gap:.45rem; background:rgba(255,69,0,.1); border:1px solid rgba(255,69,0,.3); color:var(--ac2); padding:.18rem .7rem; border-radius:2px; font-family:'Space Mono',monospace; font-size:.6rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:.8rem; }
+.ctag::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--ac2); animation:pulse 1.2s infinite; }
+.contact h2 { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:3px; color:#fff; margin-bottom:.5rem; }
+.contact h2 span { color:var(--ac); }
+.contact p { font-size:.9rem; color:var(--mu); line-height:1.7; max-width:380px; }
+.cinfo { flex:1; min-width:240px; }
+.cinfo-card {
+  background:var(--s2); border:1px solid var(--br2); border-radius:6px;
+  padding:1.2rem 1.4rem; display:flex; flex-direction:column; gap:.9rem;
+}
+.cinfo-item { display:flex; align-items:center; gap:.85rem; }
+.cinfo-icon {
+  width:38px; height:38px; border-radius:5px; display:flex; align-items:center;
+  justify-content:center; font-size:1.1rem; flex-shrink:0;
+}
+.icon-mail { background:rgba(0,240,200,.1); border:1px solid rgba(0,240,200,.2); }
+.icon-phone { background:rgba(255,69,0,.1); border:1px solid rgba(255,69,0,.2); }
+.cinfo-lbl { font-size:.65rem; font-family:'Space Mono',monospace; color:var(--mu); text-transform:uppercase; letter-spacing:1px; margin-bottom:.15rem; }
+.cinfo-val { font-size:.95rem; font-weight:700; color:var(--tx); letter-spacing:.5px; }
+.cinfo-val a { color:var(--ac); text-decoration:none; transition:color .2s; }
+.cinfo-val a:hover { color:var(--ac3); }
+.cbottom { margin-top:1.2rem; background:rgba(0,240,200,.05); border:1px solid rgba(0,240,200,.15); border-radius:5px; padding:.8rem 1.1rem; font-size:.8rem; color:var(--mu); line-height:1.6; }
+.cbottom strong { color:var(--ac); }
+
+/* ── FOOTER ── */
+footer {
+  position:relative; z-index:1;
+  padding:1.4rem 3rem;
+  background:var(--bg); border-top:1px solid var(--br);
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.8rem;
+}
+.flogo { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:3px; color:var(--ac); }
+.flinks { display:flex; gap:1.2rem; }
+.flinks a { color:var(--mu); text-decoration:none; font-size:.78rem; transition:color .2s; }
+.flinks a:hover { color:var(--ac); }
+
+/* ── UTILS ── */
+.nores { text-align:center; padding:4rem; color:var(--mu); font-family:'Space Mono',monospace; font-size:.75rem; }
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--br2); border-radius:3px; }
+@media(max-width:860px) {
+  .sidebar, .hchips { display:none; }
+  .hero { flex-direction:column; padding:2rem 1.5rem; }
+  .main { padding:1rem; }
+  .contact { padding:2rem 1.5rem; }
+  footer { padding:1.2rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- CART -->
+<div class="ov" id="ov"></div>
+<div class="csd" id="cs">
+  <div class="chd"><h2>🛒 Cart</h2><button class="xb" id="xbtn">✕</button></div>
+  <div class="citms" id="citms"><div class="cempty"><span style="font-size:2rem">📦</span><span>Cart is empty</span></div></div>
+  <div class="cft">
+    <div class="ctot"><div class="ctlbl">Total</div><div class="ctamt" id="ctot">₹0</div></div>
+    <button class="chkb" id="chkb">Checkout →</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">VoltX<span style="color:var(--ac2)">X</span> Hub<sub>Electronics Store</sub></div>
+  <div class="nsrch">
+    <span style="color:var(--mu)">🔍</span>
+    <input type="text" id="sb" placeholder="Search components, brands, specs...">
+  </div>
+  <div class="nright">
+    <button class="cbtn" id="cartBtn">🛒 Cart <div class="cc" id="ccount">0</div></button>
+    <button class="btn bto">Login</button>
+    <button class="btn btp">Sign Up</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="htxt">
+    <div class="hbadge">Pimpri, Pune · Est. 2026</div>
+    <h1>ALL PARTS.<br><span class="c1">ONE HUB.</span> <span class="c2">ZERO WAIT.</span></h1>
+    <p class="hdesc">Capacitors, Resistors, Inductors, MOSFETs, Sensors, Power modules & 120+ genuine components from trusted global brands — delivered to your door.</p>
+    <div class="hbtns">
+      <button class="btn btp btnlg" id="allBtn">Browse All Products</button>
+      <button class="btn bto btnlg" id="scrollBtn">View Categories ↓</button>
+    </div>
+    <div class="stats">
+      <div><div class="sn">13</div><div class="sl">Categories</div></div>
+      <div><div class="sn">120+</div><div class="sl">Products</div></div>
+      <div><div class="sn">50+</div><div class="sl">Brands</div></div>
+      <div><div class="sn">98%</div><div class="sl">In Stock</div></div>
+    </div>
+  </div>
+  <div class="hchips" id="chips">
+    <div class="hc" data-cat="mcu"><div class="ci">🔌</div><div class="cn">MCU</div></div>
+    <div class="hc" data-cat="passive"><div class="ci">⚡</div><div class="cn">Passive</div></div>
+    <div class="hc" data-cat="active"><div class="ci">🔧</div><div class="cn">Active</div></div>
+    <div class="hc" data-cat="sensors"><div class="ci">📡</div><div class="cn">Sensors</div></div>
+    <div class="hc" data-cat="power"><div class="ci">🔋</div><div class="cn">Power</div></div>
+    <div class="hc" data-cat="electromech"><div class="ci">⚙️</div><div class="cn">Motors</div></div>
+    <div class="hc" data-cat="display"><div class="ci">🖥️</div><div class="cn">Display</div></div>
+    <div class="hc" data-cat="comms"><div class="ci">📶</div><div class="cn">Comms</div></div>
+    <div class="hc" data-cat="iot"><div class="ci">🌐</div><div class="cn">IoT</div></div>
+    <div class="hc" data-cat="cables"><div class="ci">🔩</div><div class="cn">Cables</div></div>
+    <div class="hc" data-cat="tools"><div class="ci">🛠️</div><div class="cn">Tools</div></div>
+    <div class="hc" data-cat="kits"><div class="ci">📦</div><div class="cn">Kits</div></div>
+    <div class="hc" data-cat="industrial"><div class="ci">🏭</div><div class="cn">Indust.</div></div>
+    <div class="hc on" data-cat="all"><div class="ci">⚡</div><div class="cn">All</div></div>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="layout" id="mc">
+  <div class="sidebar">
+    <div class="stitle">Categories</div>
+    <div class="si on" data-cat="all"><span class="ni">⚡</span>All Products<span class="nb">120+</span></div>
+    <div class="si" data-cat="mcu"><span class="ni">🔌</span>Microcontrollers<span class="nb">10</span></div>
+    <div class="si" data-cat="passive"><span class="ni">⚡</span>Passive Comp.<span class="nb">24</span></div>
+    <div class="si" data-cat="active"><span class="ni">🔧</span>Active Comp.<span class="nb">30</span></div>
+    <div class="si" data-cat="sensors"><span class="ni">📡</span>Sensors<span class="nb">10</span></div>
+    <div class="si" data-cat="power"><span class="ni">🔋</span>Power<span class="nb">8</span></div>
+    <div class="si" data-cat="electromech"><span class="ni">⚙️</span>Electromech.<span class="nb">10</span></div>
+    <div class="si" data-cat="display"><span class="ni">🖥️</span>Displays<span class="nb">5</span></div>
+    <div class="si" data-cat="comms"><span class="ni">📶</span>Communication<span class="nb">7</span></div>
+    <div class="si" data-cat="iot"><span class="ni">🌐</span>IoT Modules<span class="nb">4</span></div>
+    <div class="si" data-cat="cables"><span class="ni">🔩</span>Cables & Access.<span class="nb">5</span></div>
+    <div class="si" data-cat="tools"><span class="ni">🛠️</span>Tools<span class="nb">5</span></div>
+    <div class="si" data-cat="kits"><span class="ni">📦</span>Kits<span class="nb">4</span></div>
+    <div class="si" data-cat="industrial"><span class="ni">🏭</span>Industrial<span class="nb">5</span></div>
+    <div class="sdiv"></div>
+    <div class="stitle">Quick Filter</div>
+    <div class="si" onclick="filterPrice(0,100)" style="font-size:.75rem"><span class="ni">💚</span>Under ₹100</div>
+    <div class="si" onclick="filterPrice(100,500)" style="font-size:.75rem"><span class="ni">💛</span>₹100 – ₹500</div>
+    <div class="si" onclick="filterPrice(500,99999)" style="font-size:.75rem"><span class="ni">🔴</span>Above ₹500</div>
+  </div>
+
+  <div class="main">
+    <div class="pgtitle" id="pgt">All Products</div>
+    <div class="pgsub" id="pgs">Complete catalog — genuine components from trusted global brands</div>
+    <div class="resbar">
+      <div class="rc">Showing <span id="rc">0</span> products</div>
+      <select class="ss" id="sortSel">
+        <option value="">Sort: Featured</option>
+        <option value="asc">Price: Low → High</option>
+        <option value="desc">Price: High → Low</option>
+        <option value="name">Name A–Z</option>
+      </select>
+    </div>
+    <div id="pc"></div>
+  </div>
+</div>
+
+<!-- CONTACT SECTION -->
+<div class="contact" id="contact">
+  <div class="contact-inner">
+    <div style="flex:1;min-width:280px;">
+      <div class="ctag">Need Something Specific?</div>
+      <h2>Component <span>Not Listed?</span></h2>
+      <p>If you're looking for a specific component that isn't in our catalog — a rare IC, specialty sensor, industrial module, or bulk order — just reach out! We source components on request and aim to respond within 24 hours.</p>
+      <div class="cbottom">
+        <strong>💡 Pro Tip:</strong> Mention the exact part number, quantity, and your application. We'll find it or suggest the closest alternative available in India.
+      </div>
+    </div>
+    <div class="cinfo">
+      <div class="cinfo-card">
+        <div style="font-family:'Space Mono',monospace;font-size:.62rem;color:var(--mu);text-transform:uppercase;letter-spacing:2px;margin-bottom:.2rem;">Contact Us</div>
+        <div class="cinfo-item">
+          <div class="cinfo-icon icon-mail">📧</div>
+          <div>
+            <div class="cinfo-lbl">Email</div>
+            <div class="cinfo-val"><a href="mailto:vmchillarge6@gmail.com">vmchillarge6@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="cinfo-item">
+          <div class="cinfo-icon icon-phone">📞</div>
+          <div>
+            <div class="cinfo-lbl">Phone / WhatsApp</div>
+            <div class="cinfo-val"><a href="tel:+917219399174">+91 72193 99174</a></div>
+          </div>
+        </div>
+        <div style="padding-top:.6rem;border-top:1px solid var(--br);font-size:.76rem;color:var(--mu);line-height:1.6;">
+          📍 Pimpri, Pune, Maharashtra, India<br>
+          🕐 Mon–Sat &nbsp;·&nbsp; 9:00 AM – 7:00 PM
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="flogo">VoltX Hub</div>
+  <div style="font-size:.76rem;color:var(--mu)">© 2026 VoltX Hub · Pimpri, Pune · Genuine Electronics Components</div>
+  <div class="flinks">
+    <a href="#contact">Contact</a>
+    <a href="#">Datasheets</a>
+    <a href="#">Shipping</a>
+    <a href="#">About</a>
+  </div>
+</footer>
+
+<script>
+(function() {
+
+var IDIR = 'voltx_imgs/';
+var ID_IMG = {
+  1:'arduino_uno', 6:'esp32', 5:'esp8266', 7:'stm32', 8:'stm32',
+  12:'raspberry_pi', 13:'raspberry_pi', 16:'resistors', 17:'resistors',
+  21:'cap_470uf_25v', 22:'cap_1000uf_25v', 23:'cap_150pf', 24:'cap_1uf_450v',
+  25:'cap_2200uf_rubycon', 26:'cap_ceramic_50v', 27:'cap_22pf_mono',
+  28:'cap_220uf_axial', 29:'cap_220uf_400v_snapin', 30:'cap_samwha_85c',
+  31:'cap_smd_electro', 32:'cap_470uf_25v_black', 33:'cap_film_red',
+  34:'cap_100uf_50v_orange', 35:'cap_electro_kit_black', 36:'cap_2200uf_25v_blue',
+  37:'cap_electro_kit_green', 38:'cap_33uf_100v',
+  43:'inductor_ferrite', 49:'diode_1n4007', 50:'diode_1n4007'
+};
+
+function imgHtml(id) {
+  if (ID_IMG[id]) return '<img src="' + IDIR + ID_IMG[id] + '.png" loading="lazy">';
+  return '';
+}
+
+/* ── 120 PRODUCTS ── */
+var P = [
+/* MCU */
+{id:1,  cat:'mcu', sub:'Arduino', e:'🔌', n:'Arduino Uno R3', co:'Arduino (Italy)', p:450, t:'hot', d:'ATmega328P · 14 digital I/O · 6 PWM · 16MHz · USB. Most popular beginner MCU.'},
+{id:2,  cat:'mcu', sub:'Arduino', e:'📟', n:'Arduino Nano V3', co:'Arduino (Italy)', p:280, t:'hot', d:'Compact ATmega328P · Mini-USB · breadboard-friendly. Great for tight spaces.'},
+{id:3,  cat:'mcu', sub:'Arduino', e:'⚡', n:'Arduino Mega 2560 R3', co:'Arduino (Italy)', p:750, t:'', d:'ATmega2560 · 54 I/O pins · 256KB flash · 4 UARTs. For large projects.'},
+{id:4,  cat:'mcu', sub:'Espressif', e:'📶', n:'NodeMCU ESP8266', co:'Espressif (China)', p:220, t:'hot', d:'WiFi SoC · 11 GPIO · 80/160MHz. Budget IoT workhorse.'},
+{id:5,  cat:'mcu', sub:'Espressif', e:'🌐', n:'ESP32 Dev Board 38-pin', co:'Espressif (China)', p:350, t:'hot', d:'Dual-core 240MHz · WiFi + BT 4.2 · 34 GPIO · 4MB flash.'},
+{id:6,  cat:'mcu', sub:'STMicro', e:'🔷', n:'STM32F103C8 Blue Pill', co:'STMicroelectronics', p:180, t:'new', d:'ARM Cortex-M3 · 72MHz · 64KB flash · USB · CAN · I2C · SPI.'},
+{id:7,  cat:'mcu', sub:'Microchip', e:'🟣', n:'PIC16F877A', co:'Microchip (USA)', p:120, t:'', d:'8-bit PIC · 40-pin DIP · 14KB flash · ADC · UART · SPI.'},
+{id:8,  cat:'mcu', sub:'Microchip', e:'🔴', n:'ATmega32 Microcontroller', co:'Microchip Atmel (USA)', p:150, t:'', d:'8-bit AVR · 40-pin DIP · 32KB flash · 32 I/O · 10-bit ADC.'},
+{id:9,  cat:'mcu', sub:'Raspberry Pi', e:'🍓', n:'Raspberry Pi Pico RP2040', co:'Raspberry Pi (UK)', p:390, t:'new', d:'Dual-core Cortex-M0+ · 133MHz · 26 GPIO · MicroPython.'},
+{id:10, cat:'mcu', sub:'Raspberry Pi', e:'🖥️', n:'Raspberry Pi 5 8GB', co:'Raspberry Pi (UK)', p:5500, t:'new', d:'Quad-core Cortex-A76 · 2.4GHz · 8GB RAM · PCIe · Dual 4K HDMI.'},
+/* PASSIVE – RESISTORS */
+{id:11, cat:'passive', sub:'Resistors', e:'〰️', n:'Carbon Film Kit 600pcs', co:'Yageo (Taiwan)', p:180, t:'kit', d:'600pcs 1/4W · 1Ω–1MΩ · ±5%. Complete resistor kit for every lab.'},
+{id:12, cat:'passive', sub:'Resistors', e:'〰️', n:'Metal Film Kit 500pcs', co:'Vishay (USA)', p:250, t:'', d:'500pcs 1/4W metal film · ±1% precision. Superior quality resistors.'},
+{id:13, cat:'passive', sub:'Resistors', e:'🎛️', n:'10kΩ Potentiometer B10K', co:'Alps Alpine (Japan)', p:18, t:'hot', d:'Linear 10kΩ · 6mm shaft. Sensor calibration, volume control.'},
+{id:14, cat:'passive', sub:'Resistors', e:'🎛️', n:'Trimmer Pot 10kΩ 3296W', co:'Bourns (USA)', p:8, t:'', d:'Multi-turn precision trimmer. Fine-tuning for analog circuits.'},
+/* PASSIVE – CAPACITORS */
+{id:15, cat:'passive', sub:'Capacitors', e:'🟠', n:'470µF 25V Electrolytic (Keltron)', co:'Keltron (India)', p:8, t:'hot', d:'470µF/25V · 105°C radial. Standard power supply filtering cap.'},
+{id:16, cat:'passive', sub:'Capacitors', e:'⚫', n:'1000µF 25V Electrolytic', co:'Nichicon (Japan)', p:12, t:'hot', d:'1000µF/25V · 105°C. Bulk energy storage for PSU circuits.'},
+{id:17, cat:'passive', sub:'Capacitors', e:'🟤', n:'150pF Ceramic Cap (Pack 5)', co:'Quartz Components (India)', p:5, t:'', d:'150pF ceramic · 50V. For RF, oscillators, bypass decoupling.'},
+{id:18, cat:'passive', sub:'Capacitors', e:'🔘', n:'1µF 450V Electrolytic', co:'Nichicon (Japan)', p:25, t:'', d:'1µF/450V high-voltage aluminium. For inverter circuits.'},
+{id:19, cat:'passive', sub:'Capacitors', e:'⚫', n:'Rubycon ZL 2200µF 25V Low ESR', co:'Rubycon (Japan)', p:45, t:'', d:'2200µF/25V · 105°C · Low ESR ZL series. Premium SMPS cap.'},
+{id:20, cat:'passive', sub:'Capacitors', e:'🟠', n:'Ceramic Cap 50V DIP Pack 50', co:'Robozar (India)', p:40, t:'kit', d:'50pcs ceramic disc · 50V. Standard decoupling assortment.'},
+{id:21, cat:'passive', sub:'Capacitors', e:'⚫', n:'Wizzo 470µF 25V Pack 25', co:'Wizzo (India)', p:60, t:'kit', d:'25pcs 470µF/25V bulk. Essential stock for every lab.'},
+{id:22, cat:'passive', sub:'Capacitors', e:'🔴', n:'0.1µF 400V Film Capacitor', co:'CL21 TY (China)', p:8, t:'', d:'400V/0.1µF polyester film. Motor-run, snubber, EMI filter.'},
+{id:23, cat:'passive', sub:'Capacitors', e:'🟢', n:'Electrolytic Cap Kit 120pcs', co:'ChongX (China)', p:180, t:'kit', d:'Assorted 2.2µF–1000µF · 105°C · 63V. High-frequency stable.'},
+{id:24, cat:'passive', sub:'Capacitors', e:'⚫', n:'33µF 100V 105°C Radial 30pcs', co:'uxcell (China)', p:95, t:'', d:'30pcs · 8×12mm · 2000H life. Reliable industrial-grade caps.'},
+/* PASSIVE – INDUCTORS */
+{id:25, cat:'passive', sub:'Inductors', e:'🌀', n:'220µH 0.5W Color Ring 50pcs', co:'Various (China)', p:50, t:'kit', d:'50pcs axial color-ring inductors · 220µH · 1/2W. For RF filters.'},
+{id:26, cat:'passive', sub:'Inductors', e:'🌀', n:'KEMET 80µH Iron Core Inductor', co:'KEMET (USA)', p:139, t:'', d:'80µH iron core · leaded. Precision for filter and resonance circuits.'},
+{id:27, cat:'passive', sub:'Inductors', e:'🌀', n:'40mH Ferrite Core Inductor UU9.8', co:'Various (China)', p:55, t:'', d:'40mH ferrite coil · high Q. Audio crossover and filter circuits.'},
+{id:28, cat:'passive', sub:'Inductors (SMD)', e:'🌀', n:'CDRH104R 220µH SMD Pack 5', co:'Quartz Components (India)', p:75, t:'hot', d:'5pcs 220µH SMD · CD54. Compact buck converter designs.'},
+{id:29, cat:'passive', sub:'Inductors (SMD)', e:'🌀', n:'220µH 1A SMD Inductor CD-43', co:'Various (China)', p:5, t:'', d:'220µH/1A SMD CD43. Widely used in student projects.'},
+{id:30, cat:'passive', sub:'Inductors (SMD)', e:'🌀', n:'Bourns SRP1770CC-150M Power Inductor', co:'Bourns (USA)', p:359, t:'', d:'150µH high-current SMD · SRP1770 series. Industrial grade.'},
+/* ACTIVE – DIODES */
+{id:31, cat:'active', sub:'Diodes', e:'▶️', n:'1N4007 Rectifier Diode', co:'Vishay (USA)', p:2, t:'hot', d:'1A/1000V silicon rectifier. Standard for rectification and protection.'},
+{id:32, cat:'active', sub:'Diodes', e:'▶️', n:'1N4148 Fast Switching Pack 50', co:'Vishay (USA)', p:99, t:'hot', d:'50pcs · 75V/150mA · 4ns. Standard fast switching diode.'},
+{id:33, cat:'active', sub:'Diodes', e:'▶️', n:'100pcs Diode Assortment Kit', co:'Various', p:249, t:'kit', d:'100pcs mixed: 1N4007, 1N4148, zeners, schottky. Complete kit.'},
+{id:34, cat:'active', sub:'Zener Diodes', e:'⚡', n:'Zener 1N4733A 5.1V/1W', co:'Robozar (India)', p:5, t:'hot', d:'5.1V/1W. Voltage regulation and over-voltage protection.'},
+{id:35, cat:'active', sub:'Schottky Diodes', e:'🔶', n:'1N5819 Schottky 40V/1A', co:'KEXIN (China)', p:3, t:'hot', d:'40V/1A · Vf 0.5V · DO-214AC. Fast recovery for SMPS, solar.'},
+{id:36, cat:'active', sub:'Schottky Diodes', e:'🔶', n:'STMicro STPS140A 40V/1A', co:'STMicroelectronics', p:32, t:'', d:'STPS140A · 40V/1A · DO-214AC. Quality schottky for power design.'},
+/* ACTIVE – LEDs */
+{id:37, cat:'active', sub:'LEDs', e:'💡', n:'5mm LED Kit 500pcs 5 Colors', co:'Various', p:199, t:'kit', d:'500pcs · Red, Green, Blue, Yellow, White · 100pcs each color.'},
+{id:38, cat:'active', sub:'LEDs', e:'💡', n:'5mm Blue LED Pack 10', co:'Various', p:10, t:'', d:'5mm blue · 3V · 20mA. Standard round-head diffused LED.'},
+{id:39, cat:'active', sub:'LEDs', e:'💡', n:'100pcs 3mm Diffused White LED', co:'Ranvirkar (India)', p:165, t:'', d:'100pcs 3mm diffused white. For matrix displays and indicators.'},
+{id:40, cat:'active', sub:'LEDs', e:'💡', n:'50pcs 5mm Assorted LED Kit', co:'Various', p:199, t:'kit', d:'50pcs round-head 5 colors 5mm. For every project.'},
+/* ACTIVE – TRANSISTORS */
+{id:41, cat:'active', sub:'Transistors BJT', e:'🔧', n:'BC547 NPN Transistor', co:'ON Semi (USA)', p:2, t:'hot', d:'NPN · 45V/100mA · TO-92. General-purpose amplifier and switch.'},
+{id:42, cat:'active', sub:'Transistors BJT', e:'🔧', n:'BC557 PNP Transistor', co:'ON Semi (USA)', p:2, t:'', d:'PNP · 45V/100mA. Complementary pair to BC547.'},
+{id:43, cat:'active', sub:'Transistors BJT', e:'🔧', n:'MJE13009 NPN Power BJT 12A/400V', co:'STMicroelectronics', p:14, t:'', d:'12A/400V · 80W. For inverters and high-power switching.'},
+{id:44, cat:'active', sub:'Transistors BJT', e:'🔧', n:'TIP122 NPN Darlington', co:'STMicroelectronics', p:14, t:'hot', d:'NPN Darlington · 100V/5A · hFE≥1000 · TO-220. Drives heavy loads.'},
+{id:45, cat:'active', sub:'MOSFETs N-Ch', e:'⚡', n:'IRFZ44N N-Ch MOSFET 55V/49A', co:'International Rectifier', p:35, t:'hot', d:'55V/49A · TO-220. Industry standard for motor drivers and inverters.'},
+{id:46, cat:'active', sub:'MOSFETs N-Ch', e:'⚡', n:'IRF540N N-Ch MOSFET 100V/33A', co:'International Rectifier', p:26, t:'hot', d:'100V/33A · RDS(on) 44mΩ · TO-220. Popular high-current switch.'},
+{id:47, cat:'active', sub:'MOSFETs N-Ch', e:'⚡', n:'2N7000 N-Ch MOSFET Pack 10', co:'INVENTO (India)', p:299, t:'', d:'10pcs · 200mA/60V · TO-92. Logic-level gate, low-power switching.'},
+{id:48, cat:'active', sub:'MOSFETs P-Ch', e:'🔶', n:'IRF9540 P-Ch MOSFET 100V/19A', co:'International Rectifier', p:28, t:'hot', d:'P-Ch · 100V/19A · TO-220. For high-side switching, H-bridge.'},
+{id:49, cat:'active', sub:'MOSFETs P-Ch', e:'🔶', n:'IRF5305 P-Ch MOSFET 55V/31A', co:'International Rectifier', p:149, t:'', d:'P-Ch HEXFET · 55V/31A · TO-220. High current P-channel.'},
+{id:50, cat:'active', sub:'Op-Amps', e:'🟩', n:'LM358 Dual Op-Amp Pack 5', co:'Texas Instruments (USA)', p:69, t:'hot', d:'5pcs · single-supply 3–32V · DIP-8. Most used op-amp for IoT.'},
+{id:51, cat:'active', sub:'Op-Amps', e:'🟦', n:'LM741 Op-Amp Pack 10', co:'Texas Instruments (USA)', p:199, t:'', d:'10pcs · DIP-8 classic op-amp. For amplifier and comparator circuits.'},
+{id:52, cat:'active', sub:'Timer ICs', e:'⏱️', n:'NE555 Timer IC Pack 10', co:'Texas Instruments (USA)', p:109, t:'hot', d:'10pcs · DIP-8 · astable/monostable. Most popular IC in the world.'},
+{id:53, cat:'active', sub:'Logic ICs', e:'🔢', n:'74HC00 Quad NAND Gate', co:'Robozar (India)', p:17, t:'', d:'74HC CMOS · quad 2-input NAND. For digital logic experiments.'},
+{id:54, cat:'active', sub:'Voltage Regulators', e:'⚡', n:'7805 +5V Regulator Pack 5', co:'STMicroelectronics', p:39, t:'hot', d:'5pcs · TO-220 · +5V/1.5A. Classic regulator for 5V power supplies.'},
+{id:55, cat:'active', sub:'Voltage Regulators', e:'⚡', n:'LM317 Adjustable Regulator', co:'Texas Instruments (USA)', p:17, t:'', d:'1.25–37V · 1.5A · TO-220. Set any voltage with just 2 resistors.'},
+{id:56, cat:'active', sub:'Motor Drivers', e:'🔌', n:'L298N Motor Driver Module', co:'STMicroelectronics', p:229, t:'hot', d:'Dual H-bridge · 2A/ch · 5–46V. Controls 2 DC motors from Arduino.'},
+{id:57, cat:'active', sub:'Motor Drivers', e:'🔌', n:'L293D Motor Driver IC', co:'Texas Instruments (USA)', p:55, t:'', d:'Quad half-H · DIP-16 · 600mA/ch. For small DC motors.'},
+{id:58, cat:'active', sub:'IGBTs', e:'🔷', n:'25N120 IGBT 1200V/25A Pack 2', co:'Various', p:229, t:'', d:'2pcs · TO-247. For inverters, welding machines, UPS, motor drives.'},
+{id:59, cat:'active', sub:'IGBTs', e:'🔷', n:'ULN2003 Darlington Array SMD', co:'Quartz Components (India)', p:14, t:'', d:'7-channel Darlington · SMD. Drive relays and steppers from logic.'},
+{id:60, cat:'active', sub:'Op-Amps', e:'🟦', n:'OP07 Ultralow Offset Op-Amp', co:'Robozar (India)', p:13, t:'', d:'75µV offset · DIP-8. Precision instrumentation circuits.'},
+/* SENSORS */
+{id:61, cat:'sensors', sub:'Temperature', e:'🌡️', n:'LM35 Temperature Sensor', co:'Texas Instruments (USA)', p:40, t:'hot', d:'Analog · 10mV/°C · 0–100°C. Direct Celsius output, no calibration.'},
+{id:62, cat:'sensors', sub:'Temperature', e:'🌡️', n:'DS18B20 Waterproof Probe', co:'Quartz Components (India)', p:49, t:'hot', d:'1-Wire digital · ±0.5°C · waterproof. For liquid temperature sensing.'},
+{id:63, cat:'sensors', sub:'Temperature', e:'🌡️', n:'DHT22 Temp & Humidity Sensor', co:'AOSONG (China)', p:120, t:'hot', d:'-40–80°C · 0–100%RH · ±0.5°C. Best IoT temperature + humidity sensor.'},
+{id:64, cat:'sensors', sub:'Gas Sensors', e:'💨', n:'MQ-2 Gas / Smoke Sensor', co:'Zhengzhou Winsen (China)', p:90, t:'', d:'Detects LPG, smoke, alcohol, methane. Analog + digital output.'},
+{id:65, cat:'sensors', sub:'Gas Sensors', e:'💨', n:'MQ-6 Gas Sensor Module', co:'Zhengzhou Winsen (China)', p:199, t:'new', d:'Sensitive to LPG and butane. Home gas leak detection systems.'},
+{id:66, cat:'sensors', sub:'Motion Sensors', e:'👁️', n:'HC-SR501 PIR Motion Sensor', co:'BISS Semiconductor (China)', p:61, t:'hot', d:'Passive IR motion · 7m range · adjustable sensitivity and delay.'},
+{id:67, cat:'sensors', sub:'IMU', e:'🔃', n:'MPU-6050 Gyro + Accelerometer', co:'InvenSense/TDK (USA)', p:95, t:'hot', d:'6-axis IMU · I2C. Essential for drones, robotics, gesture control.'},
+{id:68, cat:'sensors', sub:'Distance', e:'📏', n:'HC-SR04 Ultrasonic Sensor', co:'Kingduino (China)', p:69, t:'hot', d:'2–400cm · ±3mm · 5V. Most used Arduino distance sensor.'},
+{id:69, cat:'sensors', sub:'Light', e:'☀️', n:'LDR Light Sensor Pack 10', co:'GL Electronics (China)', p:30, t:'', d:'10pcs photoresistors. For light-sensitive and auto-dimming circuits.'},
+{id:70, cat:'sensors', sub:'Color', e:'🌈', n:'TCS34725 RGB Color Sensor', co:'ams (Austria)', p:180, t:'new', d:'I2C · 16-bit ADC per channel · IR filter. Accurate color detection.'},
+/* POWER */
+{id:71, cat:'power', sub:'SMPS Modules', e:'🔋', n:'5V 700mA Isolated SMPS', co:'Quartz Components (India)', p:86, t:'hot', d:'5V/700mA isolated · 230V AC input. Safe for Arduino projects.'},
+{id:72, cat:'power', sub:'SMPS Modules', e:'🔋', n:'MB102 Breadboard PSU 3.3V/5V', co:'Various (China)', p:115, t:'hot', d:'3.3V/5V selectable · USB or barrel jack. Standard breadboard power.'},
+{id:73, cat:'power', sub:'Buck Converters', e:'⬇️', n:'LM2596 Buck Converter Adjustable', co:'Hexonix (India)', p:159, t:'hot', d:'4–40V in → 1.25–37V adj. High efficiency step-down regulator.'},
+{id:74, cat:'power', sub:'Boost Converters', e:'⬆️', n:'10A Boost Converter 8–48V', co:'amicisolar (China)', p:449, t:'', d:'8–48V to 12–50V adj · 10A. High-power boost module.'},
+{id:75, cat:'power', sub:'Battery Chargers', e:'🔆', n:'TP4056 Li-ion Charger Type-C', co:'NanJing Top Power (China)', p:14, t:'hot', d:'1A · Type-C · over-charge protection · 4.2V full charge.'},
+{id:76, cat:'power', sub:'Inverters', e:'🔄', n:'12V→220V 150W Inverter Module', co:'Various (China)', p:480, t:'', d:'DC 12V to AC 220V · 150W. Emergency backup and off-grid use.'},
+{id:77, cat:'power', sub:'Inverters', e:'🔄', n:'12V→220V 35W Boost Inverter', co:'Various (China)', p:203, t:'', d:'12V to 220V AC · 35W. Compact inverter for testing and small loads.'},
+{id:78, cat:'power', sub:'Regulators', e:'⚡', n:'Hi-Link HLK-5M05 5V/5W SMPS', co:'Hi-Link (China)', p:180, t:'new', d:'5V/1A isolated SMPS · 220V in · CE certified · compact footprint.'},
+/* ELECTROMECHANICAL */
+{id:79, cat:'electromech', sub:'Relays', e:'🔁', n:'5V SPDT Relay Module Single', co:'SRD/Songle (China)', p:35, t:'hot', d:'5V · 10A/250VAC · opto-isolated. Control mains voltage from Arduino.'},
+{id:80, cat:'electromech', sub:'Relays', e:'🔁', n:'Omron G6B-2114P Relay 12V DC', co:'OMRON (Japan)', p:272, t:'', d:'OMRON power relay · 12VDC coil. Reliable industrial switching.'},
+{id:81, cat:'electromech', sub:'Switches', e:'🔘', n:'Tactile Push Button 6×6mm Pack 50', co:'OMRON (Japan)', p:85, t:'kit', d:'50pcs OMRON tactile switches · 6×6mm. Best quality for products.'},
+{id:82, cat:'electromech', sub:'Motors', e:'🔩', n:'NEMA17 Stepper Motor 1.8°', co:'Leadshine (China)', p:499, t:'hot', d:'Bipolar stepper · 1.8°/step. Standard for 3D printers and CNC.'},
+{id:83, cat:'electromech', sub:'Motors', e:'🎯', n:'SG90 Micro Servo Motor', co:'TowerPro (Taiwan)', p:85, t:'hot', d:'9g · 180° · 1.8kg·cm · 4.8–6V. For Arduino robot arms and servos.'},
+{id:84, cat:'electromech', sub:'Motors', e:'🔄', n:'BO Motor Plastic Gear DC Motor', co:'Robozar (India)', p:42, t:'hot', d:'3–9V · 150–200RPM. Standard chassis motor for robot kits.'},
+{id:85, cat:'electromech', sub:'Motors', e:'🔄', n:'30RPM 12V DC Geared Motor', co:'Robozar (India)', p:235, t:'', d:'12V · metal gearbox · 30RPM. Slow-speed automation applications.'},
+{id:86, cat:'electromech', sub:'Solenoids', e:'🔌', n:'12V Push-Pull Solenoid Actuator', co:'TDS (China)', p:369, t:'', d:'Linear solenoid · 12VDC. For locks, dispensers and valve control.'},
+{id:87, cat:'electromech', sub:'Encoders', e:'🔄', n:'KY-040 Rotary Encoder Module', co:'Electronic Spices (India)', p:103, t:'', d:'360° rotary + push button. Menu navigation and motor feedback.'},
+{id:88, cat:'electromech', sub:'Relays', e:'🔁', n:'5V 4-Channel Relay Module', co:'SRD/Songle (China)', p:149, t:'hot', d:'4-ch · 5V · 10A/250VAC · opto-isolated. Control 4 loads from MCU.'},
+/* DISPLAY */
+{id:89, cat:'display', sub:'LCD', e:'🖥️', n:'16×2 LCD with I2C Module', co:'Hitachi (Japan)', p:329, t:'hot', d:'16×2 character LCD · I2C · 4-wire interface · adjustable backlight.'},
+{id:90, cat:'display', sub:'OLED', e:'✨', n:'0.96" OLED I2C 128×64', co:'Solomon Systech (China)', p:214, t:'hot', d:'SSD1306 · I2C · 3.3/5V. Crisp display for IoT and wearable projects.'},
+{id:91, cat:'display', sub:'TFT', e:'🌈', n:'2.8" TFT Touch SPI 240×320', co:'Ilitek (Taiwan)', p:1670, t:'', d:'ILI9341 · SPI + touch. Full-color GUI for Arduino/ESP32.'},
+{id:92, cat:'display', sub:'7-Segment', e:'🔢', n:'TM1637 4-Digit 7-Seg Module', co:'Titan Micro (China)', p:256, t:'hot', d:'4-digit · 2-wire · TM1637. Perfect for clocks, counters, timers.'},
+{id:93, cat:'display', sub:'LED Matrix', e:'🟥', n:'MAX7219 8×8 LED Matrix', co:'Maxim Integrated (USA)', p:199, t:'hot', d:'8×8 red LED matrix · SPI driven. For animations and scrolling text.'},
+/* COMMUNICATION */
+{id:94, cat:'comms', sub:'Bluetooth', e:'🔵', n:'HC-05 Bluetooth Module', co:'Guangzhou HC (China)', p:279, t:'hot', d:'BT 2.0 · Master/Slave · UART. Wireless serial comms for Arduino.'},
+{id:95, cat:'comms', sub:'Wi-Fi', e:'📶', n:'ESP-12F WiFi Module', co:'Espressif (China)', p:99, t:'', d:'ESP8266 · 11 GPIO · 4MB flash · FCC certified. Add WiFi to any MCU.'},
+{id:96, cat:'comms', sub:'GSM', e:'📱', n:'SIM800L V2 GPRS Module 5V', co:'Robozar (India)', p:449, t:'hot', d:'SIM800L · 5V · quad-band. Compact GSM for IoT projects.'},
+{id:97, cat:'comms', sub:'GSM', e:'📱', n:'SIM900A GSM Module V4', co:'SIMCOM (China)', p:503, t:'', d:'Quad-band GSM/GPRS · calls · SMS · data. For remote IoT systems.'},
+{id:98, cat:'comms', sub:'LoRa', e:'📡', n:'SX1278 LoRa Module 433MHz', co:'Semtech/EBYTE (China)', p:391, t:'hot', d:'LoRa 433MHz · SPI · up to 5km range. Low-power long-range IoT.'},
+{id:99, cat:'comms', sub:'GPS', e:'🛰️', n:'NEO-6M GPS Module', co:'u-blox (Switzerland)', p:336, t:'hot', d:'u-blox NEO-6M · UART · active antenna. Vehicle tracking, navigation.'},
+{id:100,cat:'comms', sub:'RF', e:'📻', n:'433MHz RF TX+RX Kit', co:'Invento (India)', p:390, t:'', d:'TX+RX 433MHz OOK pair. Simple wireless remote up to 100m range.'},
+/* IoT */
+{id:101,cat:'iot', sub:'RTC', e:'⏰', n:'DS3231 Precision RTC Module', co:'Maxim Integrated (USA)', p:120, t:'hot', d:'±2ppm RTC · I2C · coin cell backup. Best precision RTC module.'},
+{id:102,cat:'iot', sub:'SD Card', e:'💾', n:'MicroSD Card Module SPI', co:'Various', p:45, t:'', d:'MicroSD adapter · SPI · 3.3V level shifter. For data logging.'},
+{id:103,cat:'iot', sub:'RFID', e:'📶', n:'MFRC522 RFID Reader 13.56MHz', co:'NXP Semiconductors (NL)', p:95, t:'hot', d:'NXP MFRC522 · SPI. MIFARE card reading for access control.'},
+{id:104,cat:'iot', sub:'Biometric', e:'👆', n:'AS608 Fingerprint Scanner', co:'Synochip (China)', p:450, t:'hot', d:'Optical · UART · 1000 templates. Biometric access control projects.'},
+/* CABLES & ACCESSORIES */
+{id:105,cat:'cables', sub:'Breadboards', e:'🟫', n:'830-Point Breadboard Full Size', co:'Molex (USA)', p:65, t:'hot', d:'830-tie solderless · nickel-plated spring contacts. Industry standard.'},
+{id:106,cat:'cables', sub:'Jumper Wires', e:'🌈', n:'Jumper Wire Kit 120pcs All Types', co:'Generic', p:70, t:'kit', d:'40 M-M + 40 M-F + 40 F-F · 20cm. All types for breadboard.'},
+{id:107,cat:'cables', sub:'Connectors', e:'🔌', n:'JST Connector Kit 20 Pairs', co:'JST (Japan)', p:55, t:'', d:'20 pairs JST-PH 2.0mm. Standard LiPo battery connector.'},
+{id:108,cat:'cables', sub:'Connectors', e:'🔌', n:'Screw Terminal 2-pin 5mm Pack 10', co:'Phoenix Contact (Germany)', p:35, t:'', d:'10× screw terminals · 5mm · 10A/300V. Secure wire-to-PCB connections.'},
+{id:109,cat:'cables', sub:'PCB', e:'🟢', n:'Single-Layer PCB Blank 10×15cm', co:'Generic', p:20, t:'', d:'Single-layer copper-clad · FR4 · 1.6mm. For prototype etching.'},
+/* TOOLS */
+{id:110,cat:'tools', sub:'Multimeters', e:'🔍', n:'Digital Multimeter UT61E', co:'UNI-T (China)', p:1200, t:'hot', d:'True RMS · 22000 count · auto-range · CAT III 600V. Professional DMM.'},
+{id:111,cat:'tools', sub:'Oscilloscopes', e:'📊', n:'DSO138 Mini Oscilloscope Kit', co:'JYE Tech (China)', p:850, t:'hot', d:'1MHz · 1Msps · 2.4" TFT. Learn while building — great FYP kit.'},
+{id:112,cat:'tools', sub:'Soldering', e:'🔥', n:'Soldering Iron 25W with Stand', co:'Soldron (India)', p:180, t:'hot', d:'25W ceramic heater · 380°C max · stand included.'},
+{id:113,cat:'tools', sub:'Soldering', e:'🔥', n:'Kester 60/40 Solder Wire 0.8mm', co:'Kester (USA)', p:120, t:'hot', d:'60/40 tin-lead · rosin core · 0.8mm · 100g. Standard solder wire.'},
+{id:114,cat:'tools', sub:'Logic Analyzers', e:'📈', n:'8-Ch USB Logic Analyzer 24MHz', co:'DreamSourceLab (China)', p:450, t:'new', d:'8-channel · 24MHz · sigrok compatible. Debug SPI, I2C, UART.'},
+/* KITS */
+{id:115,cat:'kits', sub:'Starter Kits', e:'🌟', n:'Arduino Uno Starter Kit 65pcs', co:'Elegoo (China)', p:1299, t:'hot', d:'Elegoo Uno + breadboard + 65 components + tutorials. Best beginner kit.'},
+{id:116,cat:'kits', sub:'Sensor Kits', e:'📡', n:'37-in-1 Sensor Module Kit', co:'Keyes (China)', p:650, t:'hot', d:'37 sensor modules: DHT11, IR, joystick, tilt, flame, vibration...'},
+{id:117,cat:'kits', sub:'Robotics', e:'🤖', n:'4WD Smart Car Robot Chassis Kit', co:'Elegoo (China)', p:850, t:'', d:'4-wheel chassis + 4 motors + driver + platform. DIY robot base.'},
+{id:118,cat:'kits', sub:'Final Year Project', e:'🎓', n:'Smart Home Automation Kit', co:'VoltX Hub Bundled', p:1200, t:'new', d:'SIM800L + 4-relay + PSU + enclosure. Control appliances via SMS.'},
+/* INDUSTRIAL */
+{id:119,cat:'industrial', sub:'Circuit Breakers', e:'🔒', n:'MCB 16A 1-Pole (Legrand)', co:'Legrand (France)', p:180, t:'hot', d:'16A · C-curve · 6kA · DIN-rail. Standard miniature circuit breaker.'},
+{id:120,cat:'industrial', sub:'VFD', e:'🔄', n:'Delta VFD 1.5kW Single-Phase', co:'Delta Electronics (Taiwan)', p:4800, t:'new', d:'1.5kW · 230V to 3-phase · vector control · Modbus RS485.'},
+];
+
+/* ── STATE ── */
+var cat = 'all';
+var cart = [];
+
+/* ── RENDER ── */
+var CAT_NAMES = {all:'All Products',mcu:'Microcontrollers',passive:'Passive Components',active:'Active Components',sensors:'Sensors',power:'Power Components',electromech:'Electromechanical',display:'Display Modules',comms:'Communication',iot:'IoT Modules',cables:'Cables & Accessories',tools:'Tools & Equipment',kits:'Kits & Learning',industrial:'Industrial'};
+var CAT_SUBS  = {all:'Complete catalog — genuine components from trusted global brands',mcu:'Arduino, ESP32, STM32, PIC, Raspberry Pi boards',passive:'Resistors, Capacitors, Inductors — with real product photos',active:'Diodes, MOSFETs, Transistors, Op-Amps, ICs, Voltage Regulators',sensors:'Temperature, Gas, Motion, Distance, Color, IMU sensors',power:'SMPS, Buck/Boost converters, Li-ion chargers, Inverters',electromech:'Relays, Switches, Steppers, Servos, Solenoids, Encoders',display:'LCD, OLED, TFT touchscreen, 7-Segment, LED Matrix',comms:'Bluetooth, WiFi, GSM/GPRS, LoRa, GPS, RF modules',iot:'RTC, RFID, Fingerprint scanner, SD card modules',cables:'Breadboards, Jumper wires, JST, Screw terminals, PCB blanks',tools:'Multimeters, Oscilloscopes, Soldering irons, Logic Analyzers',kits:'Starter, Sensor, Robotics, FYP automation kits',industrial:'MCB, VFD, Contactors, Industrial sensors, SCADA'};
+
+function render(list) {
+  var pc = document.getElementById('pc');
+  document.getElementById('rc').textContent = list.length;
+  if (!list.length) { pc.innerHTML = '<div class="nores">// NO PRODUCTS FOUND<br><br>Try a different keyword or category.</div>'; return; }
+  var grps = {}, order = [];
+  list.forEach(function(p) { if (!grps[p.sub]) { grps[p.sub]=[]; order.push(p.sub); } grps[p.sub].push(p); });
+  var html = '';
+  order.forEach(function(sub) {
+    html += '<div class="sublbl">' + sub + '</div><div class="grid">';
+    grps[sub].forEach(function(p) {
+      var im = imgHtml(p.id);
+      var hasPh = !!ID_IMG[p.id];
+      var tg = p.t ? '<span class="ptag pt-'+p.t+'">'+(p.t==='kit'?'KIT':p.t.toUpperCase())+'</span>' : '';
+      var pr = p.p >= 1000 ? '₹'+(p.p/1000).toFixed(1)+'K' : '₹'+p.p;
+      html += '<div class="card"><div class="cimg '+(hasPh?'ph':'nph')+'">'+(im||'<span style="font-size:2.2rem">'+p.e+'</span>')+tg+'</div><div class="pco">'+p.co+'</div><div class="pinfo"><div class="pn">'+p.n+'</div><div class="pd">'+p.d+'</div><div class="pfoot"><div class="pp">'+pr+'</div><button class="ab" data-id="'+p.id+'">+ Add</button></div></div></div>';
+    });
+    html += '</div>';
+  });
+  pc.innerHTML = html;
+}
+
+function showCat(c) {
+  cat = c;
+  document.querySelectorAll('.si,.hc').forEach(function(e){ e.classList.toggle('on', e.dataset.cat===c); });
+  document.getElementById('pgt').textContent = CAT_NAMES[c]||c;
+  document.getElementById('pgs').textContent = CAT_SUBS[c]||'';
+  render(c==='all' ? P : P.filter(function(p){return p.cat===c;}));
+  document.getElementById('mc').scrollIntoView({behavior:'smooth'});
+}
+
+function filterPrice(min, max) {
+  document.querySelectorAll('.si').forEach(function(e){e.classList.remove('on');});
+  document.getElementById('pgt').textContent = 'Price: ₹'+min+(max<99999?'–₹'+max:'+');
+  document.getElementById('pgs').textContent = 'Filtered by price range';
+  render(P.filter(function(p){return p.p>=min && p.p<=max;}));
+  document.getElementById('mc').scrollIntoView({behavior:'smooth'});
+}
+
+function doSearch() {
+  var q = document.getElementById('sb').value.toLowerCase().trim();
+  if (!q) { showCat(cat); return; }
+  var base = cat==='all' ? P : P.filter(function(p){return p.cat===cat;});
+  var r = base.filter(function(p){ return p.n.toLowerCase().includes(q)||p.co.toLowerCase().includes(q)||p.d.toLowerCase().includes(q)||p.sub.toLowerCase().includes(q); });
+  document.getElementById('pgt').textContent = 'Search: "'+q+'"';
+  document.getElementById('pgs').textContent = r.length+' results found';
+  render(r);
+}
+
+function doSort(v) {
+  var base = cat==='all' ? P.slice() : P.filter(function(p){return p.cat===cat;});
+  if (v==='asc') base.sort(function(a,b){return a.p-b.p;});
+  else if (v==='desc') base.sort(function(a,b){return b.p-a.p;});
+  else if (v==='name') base.sort(function(a,b){return a.n.localeCompare(b.n);});
+  render(base);
+}
+
+/* ── CART ── */
+function addToCart(id) {
+  var p = P.find(function(x){return x.id===id;});
+  if (!p) return;
+  var ex = cart.find(function(i){return i.id===id;});
+  if (ex) ex.qty++; else cart.push(Object.assign({},p,{qty:1}));
+  updateCart();
+  showToast('✓ '+p.n.substring(0,40));
+}
+function removeItem(id) { cart=cart.filter(function(i){return i.id!==id;}); updateCart(); }
+function changeQty(id,d) {
+  var it=cart.find(function(i){return i.id===id;});
+  if (!it) return;
+  it.qty+=d;
+  if (it.qty<=0) removeItem(id); else updateCart();
+}
+function updateCart() {
+  var tot=cart.reduce(function(s,i){return s+i.p*i.qty;},0);
+  var cnt=cart.reduce(function(s,i){return s+i.qty;},0);
+  document.getElementById('ccount').textContent=cnt;
+  document.getElementById('ctot').textContent='₹'+tot.toLocaleString('en-IN');
+  var el=document.getElementById('citms');
+  if (!cart.length){ el.innerHTML='<div class="cempty"><span style="font-size:2rem">📦</span><span>Cart is empty</span></div>'; return; }
+  el.innerHTML=cart.map(function(it){
+    return '<div class="ci"><div class="ciic">'+it.e+'</div><div class="ciin"><div class="cinm">'+it.n+'</div><div class="cipr">₹'+it.p+' × '+it.qty+' = ₹'+(it.p*it.qty).toLocaleString('en-IN')+'</div><div class="ciqt"><button class="qb" data-qid="'+it.id+'" data-d="-1">−</button><span class="qn">'+it.qty+'</span><button class="qb" data-qid="'+it.id+'" data-d="1">+</button></div></div><button class="cdl" data-rid="'+it.id+'">🗑</button></div>';
+  }).join('');
+}
+function openCart(){ document.getElementById('cs').classList.add('open'); document.getElementById('ov').classList.add('open'); }
+function closeCart(){ document.getElementById('cs').classList.remove('open'); document.getElementById('ov').classList.remove('open'); }
+function checkout(){
+  if (!cart.length){ showToast('⚠ Cart is empty!'); return; }
+  var t=cart.reduce(function(s,i){return s+i.p*i.qty;},0), n=cart.reduce(function(s,i){return s+i.qty;},0);
+  alert('✅ Order Placed!\n\nItems: '+n+'\nTotal: ₹'+t.toLocaleString('en-IN')+'\n\nThank you for shopping at VoltX Hub!\nWe\'ll contact you shortly.\n\n📞 7219399174\n📧 vmchillarge6@gmail.com');
+  cart=[]; updateCart(); closeCart();
+}
+var _tt;
+function showToast(msg){ var el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(_tt); _tt=setTimeout(function(){el.classList.remove('show');},2000); }
+
+/* ── EVENT DELEGATION ── */
+document.addEventListener('click', function(e){
+  var ab=e.target.closest('.ab'); if(ab){ addToCart(parseInt(ab.dataset.id)); return; }
+  var qb=e.target.closest('.qb'); if(qb){ changeQty(parseInt(qb.dataset.qid),parseInt(qb.dataset.d)); return; }
+  var rd=e.target.closest('.cdl'); if(rd){ removeItem(parseInt(rd.dataset.rid)); return; }
+  var si=e.target.closest('.si[data-cat]'); if(si){ showCat(si.dataset.cat); return; }
+  var hc=e.target.closest('.hc[data-cat]'); if(hc){ showCat(hc.dataset.cat); return; }
+});
+document.getElementById('cartBtn').addEventListener('click', openCart);
+document.getElementById('xbtn').addEventListener('click', closeCart);
+document.getElementById('ov').addEventListener('click', closeCart);
+document.getElementById('chkb').addEventListener('click', checkout);
+document.getElementById('allBtn').addEventListener('click', function(){ showCat('all'); });
+document.getElementById('scrollBtn').addEventListener('click', function(){ document.getElementById('mc').scrollIntoView({behavior:'smooth'}); });
+document.getElementById('sb').addEventListener('input', doSearch);
+document.getElementById('sortSel').addEventListener('change', function(e){ doSort(e.target.value); });
+
+/* ── INIT ── */
+showCat('all');
+
+})();
+</script>
+</body>
+</html>
